@@ -36,7 +36,7 @@ export default async function Home({ searchParams }: HomePageProps) {
     <main className="relative mx-auto flex min-h-screen w-full max-w-5xl flex-col items-center justify-center px-6 py-16 text-center">
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-72 bg-[radial-gradient(circle_at_top,_rgb(16_185_129/0.2),_transparent_60%)]" />
       <p className="rounded-full border border-border/70 bg-card/70 px-3 py-1 text-xs font-medium tracking-wide text-muted-foreground backdrop-blur">
-        Spotify Wrapped風
+        公開GitHubデータ分析
       </p>
       <h1 className="mt-6 text-balance text-4xl font-bold tracking-tight sm:text-6xl">
         {APP_NAME}
@@ -66,9 +66,9 @@ export default async function Home({ searchParams }: HomePageProps) {
           </p>
         </article>
         <article className="glass-card p-4">
-          <h2 className="text-sm font-semibold">シェア画像</h2>
+          <h2 className="text-sm font-semibold">開発スタイル診断</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            SNSシェア向けOG画像を自動生成
+            20の切り口で診断し、分析結果と根拠を表示
           </p>
         </article>
       </section>

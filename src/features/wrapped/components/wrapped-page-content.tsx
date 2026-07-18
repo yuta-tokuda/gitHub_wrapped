@@ -24,6 +24,7 @@ import { PublicDataInsightCard } from "@/features/wrapped/components/public-data
 import { RepositoriesListCard } from "@/features/wrapped/components/repositories-list-card";
 import { RecruiterSummaryCard } from "@/features/wrapped/components/recruiter-summary-card";
 import { RepositoryRankingChartCard } from "@/features/wrapped/components/repository-ranking-chart-card";
+import { ShareActions } from "@/features/wrapped/components/share-actions";
 import { SkillProfileCard } from "@/features/wrapped/components/skill-profile-card";
 import type { WrappedGitHubData } from "@/types/github";
 
@@ -50,6 +51,7 @@ function WrappedHeader({ username }: { username: string }) {
       <p className="mt-3 text-sm text-muted-foreground">
         GitHubデータをもとに、開発傾向を1ページ1カードで可視化しています。
       </p>
+      <ShareActions username={username} />
       <Link className="mt-4 inline-flex text-sm underline underline-offset-4" href="/">
         別のユーザーを検索する
       </Link>

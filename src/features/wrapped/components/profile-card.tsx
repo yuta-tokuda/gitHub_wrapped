@@ -1,0 +1,56 @@
+import Image from "next/image";
+import Link from "next/link";
+
+import type { GitHubUser } from "@/types/github";
+
+import { formatDate, formatNumber } from "../utils";
+
+type ProfileCardProps = {
+  user: GitHubUser;
+};
+
+export function ProfileCard({ user }: ProfileCardProps) {
+  return (
+    <section className="rounded-2xl border bg-card p-6">
+      <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-start sm:text-left">
+        <Image
+          alt={`${user.login} icon`}
+          className="size-24 rounded-full border"
+          height={96}
+          src={user.avatarUrl}
+          width={96}
+        />
+        <div className="min-w-0">
+          <h2 className="text-2xl font-bold">{user.name ?? user.login}</h2>
+          <p className="text-sm text-muted-foreground">@{user.login}</p>
+          {user.bio ? <p className="mt-3 text-sm text-card-foreground">{user.bio}</p> : null}
+          <p className="mt-3 text-xs text-muted-foreground">
+            GitHub参加日: {formatDate(user.createdAt)}
+          </p>
+          <Link
+            className="mt-4 inline-flex rounded-md border px-3 py-1.5 text-sm hover:bg-accent"
+            href={user.htmlUrl}
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            GitHubプロフィールを見る
+          </Link>
+        </div>
+      </div>
+      <dl className="mt-6 grid grid-cols-3 gap-3 text-center">
+        <div className="rounded-lg border px-3 py-4">
+          <dt className="text-xs text-muted-foreground">Followers</dt>
+          <dd className="mt-1 text-xl font-semibold">{formatNumber(user.followers)}</dd>
+        </div>
+        <div className="rounded-lg border px-3 py-4">
+          <dt className="text-xs text-muted-foreground">Following</dt>
+          <dd className="mt-1 text-xl font-semibold">{formatNumber(user.following)}</dd>
+        </div>
+        <div className="rounded-lg border px-3 py-4">
+          <dt className="text-xs text-muted-foreground">Public Repositories</dt>
+          <dd className="mt-1 text-xl font-semibold">{formatNumber(user.publicRepos)}</dd>
+        </div>
+      </dl>
+    </section>
+  );
+}

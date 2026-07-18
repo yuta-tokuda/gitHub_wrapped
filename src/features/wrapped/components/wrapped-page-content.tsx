@@ -41,7 +41,7 @@ function WrappedHeader({ username }: { username: string }) {
   return (
     <header className="glass-card p-6">
       <p className="text-sm text-muted-foreground">{APP_NAME}</p>
-      <h1 className="mt-1 text-3xl font-bold tracking-tight sm:text-5xl">
+      <h1 className="mt-1 bg-gradient-to-r from-emerald-300 via-cyan-300 to-indigo-300 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-5xl">
         {username} のレポート
       </h1>
       <p className="mt-3 text-sm text-muted-foreground">
@@ -79,10 +79,7 @@ export function WrappedPageContent({
   rankingRepositories,
 }: WrappedPageContentProps) {
   return (
-    <main className="relative mx-auto w-full max-w-6xl space-y-5 px-2 py-6 sm:space-y-6 sm:py-8">
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64 bg-[radial-gradient(circle_at_top,_rgb(16_185_129/0.14),_transparent_58%)]" />
-      <div className="pointer-events-none absolute right-0 top-40 -z-10 h-64 w-64 rounded-full bg-emerald-400/10 blur-3xl" />
-      <div className="pointer-events-none absolute left-0 top-[28rem] -z-10 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl" />
+    <main className="report-surface mx-auto w-full max-w-6xl space-y-5 px-2 py-6 sm:space-y-6 sm:py-8">
       <AnimatedCardSection>
         <WrappedHeader username={username} />
       </AnimatedCardSection>

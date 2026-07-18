@@ -1,5 +1,7 @@
+import { Trophy } from "lucide-react";
 import { EmptyState } from "@/components/common/empty-state";
 import type { Achievement } from "@/features/wrapped/analysis/types";
+import { CardHeader } from "@/features/wrapped/components/card-header";
 
 type AchievementsCardProps = {
   achievements: Achievement[];
@@ -16,11 +18,13 @@ export function AchievementsCard({ achievements }: AchievementsCardProps) {
   }
 
   return (
-    <section className="glass-card p-6">
-      <h2 className="text-xl font-semibold">実績バッジ</h2>
-      <p className="mt-1 text-sm text-muted-foreground">
-        開発傾向に応じて獲得したバッジ
-      </p>
+    <section className="glass-card border-l-4 border-l-pink-400/70 p-6">
+      <CardHeader
+        description="開発傾向に応じて獲得したバッジ"
+        icon={Trophy}
+        iconClassName="bg-pink-500/15 text-pink-300"
+        title="実績バッジ"
+      />
       <ul className="mt-5 grid gap-3 sm:grid-cols-2">
         {achievements.map((achievement) => (
           <li className="rounded-lg border px-4 py-3" key={achievement.key}>

@@ -94,4 +94,39 @@ body {
       0 10px 30px rgb(15 23 42 / 10%),
       inset 0 1px 0 rgb(255 255 255 / 15%);
   }
+
+  .report-surface {
+    @apply relative isolate;
+  }
+
+  .report-surface::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(80% 60% at 50% -10%, rgb(16 185 129 / 18%), transparent 60%),
+      radial-gradient(55% 40% at 85% 30%, rgb(56 189 248 / 14%), transparent 70%),
+      radial-gradient(45% 35% at 10% 55%, rgb(99 102 241 / 14%), transparent 70%);
+    pointer-events: none;
+  }
+
+  .report-surface .glass-card {
+    @apply border border-white/15 bg-gradient-to-br from-white/10 via-white/5 to-transparent backdrop-blur-2xl;
+    box-shadow:
+      0 18px 45px rgb(2 6 23 / 28%),
+      inset 0 1px 0 rgb(255 255 255 / 22%);
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .report-surface .glass-card:hover {
+    transform: translateY(-2px);
+    border-color: rgb(45 212 191 / 45%);
+    box-shadow:
+      0 20px 48px rgb(2 6 23 / 34%),
+      inset 0 1px 0 rgb(255 255 255 / 24%);
+  }
 }

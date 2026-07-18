@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { ListOrdered } from "lucide-react";
 
 import { EmptyState } from "@/components/common/empty-state";
+import { CardHeader } from "@/features/wrapped/components/card-header";
 import type { GitHubRepository } from "@/types/github";
 
 import { formatDate, formatNumber } from "../utils";
@@ -20,11 +22,13 @@ export function RepositoriesListCard({ repositories }: RepositoriesListCardProps
   }
 
   return (
-    <section className="glass-card p-6">
-      <h2 className="text-xl font-semibold">リポジトリランキング</h2>
-      <p className="mt-1 text-sm text-muted-foreground">
-        Stars順の上位リポジトリを表示しています。
-      </p>
+    <section className="glass-card border-l-4 border-l-blue-400/70 p-6">
+      <CardHeader
+        description="Stars順の上位リポジトリを表示しています。"
+        icon={ListOrdered}
+        iconClassName="bg-blue-500/15 text-blue-300"
+        title="リポジトリランキング"
+      />
       <ol className="mt-5 space-y-3">
         {repositories.map((repository, index) => (
           <li className="rounded-lg border p-4" key={`${repository.id}-${repository.name}`}>

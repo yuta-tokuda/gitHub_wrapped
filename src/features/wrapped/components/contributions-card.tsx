@@ -1,4 +1,6 @@
+import { Activity } from "lucide-react";
 import type { ContributionSummary } from "@/types/github";
+import { CardHeader } from "@/features/wrapped/components/card-header";
 
 import { formatNumber } from "../utils";
 
@@ -8,11 +10,13 @@ type ContributionsCardProps = {
 
 export function ContributionsCard({ contributions }: ContributionsCardProps) {
   return (
-    <section className="glass-card p-6">
-      <h2 className="text-xl font-semibold">コントリビューション概要</h2>
-      <p className="mt-1 text-sm text-muted-foreground">
-        直近 {contributions.lookbackDays} 日の公開イベントを集計
-      </p>
+    <section className="glass-card border-l-4 border-l-violet-400/70 p-6">
+      <CardHeader
+        description={`直近 ${contributions.lookbackDays} 日の公開イベントを集計`}
+        icon={Activity}
+        iconClassName="bg-violet-500/15 text-violet-300"
+        title="コントリビューション概要"
+      />
       <dl className="mt-4 grid gap-3 sm:grid-cols-2">
         <div className="rounded-lg border px-4 py-3">
           <dt className="text-xs text-muted-foreground">総貢献ユニット</dt>

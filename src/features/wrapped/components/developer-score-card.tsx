@@ -1,5 +1,7 @@
+import { Gauge } from "lucide-react";
 import { SCORE_WEIGHTS } from "@/features/wrapped/analysis/constants";
 import type { DeveloperScoreResult } from "@/features/wrapped/analysis/types";
+import { CardHeader } from "@/features/wrapped/components/card-header";
 
 type DeveloperScoreCardProps = {
   score: DeveloperScoreResult;
@@ -48,11 +50,13 @@ export function DeveloperScoreCard({ score }: DeveloperScoreCardProps) {
   >;
 
   return (
-    <section className="glass-card p-6">
-      <h2 className="text-xl font-semibold">開発者スコア</h2>
-      <p className="mt-1 text-sm text-muted-foreground">
-        リポジトリ・スター・フォロワー・貢献度などから算出した総合評価
-      </p>
+    <section className="glass-card border-l-4 border-l-amber-400/70 p-6">
+      <CardHeader
+        description="リポジトリ・スター・フォロワー・貢献度などから算出した総合評価"
+        icon={Gauge}
+        iconClassName="bg-amber-500/15 text-amber-300"
+        title="開発者スコア"
+      />
       <p className={`mt-6 text-6xl font-bold ${toScoreColor(score.totalScore)}`}>
         {score.totalScore}
         <span className="ml-2 text-base text-muted-foreground">/ 100</span>

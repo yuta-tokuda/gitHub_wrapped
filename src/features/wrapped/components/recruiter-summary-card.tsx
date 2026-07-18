@@ -1,4 +1,6 @@
+import { BriefcaseBusiness } from "lucide-react";
 import type { RecruiterSummary } from "@/features/wrapped/analysis/recruiter-summary";
+import { CardHeader } from "@/features/wrapped/components/card-header";
 
 type RecruiterSummaryCardProps = {
   summary: RecruiterSummary;
@@ -6,8 +8,12 @@ type RecruiterSummaryCardProps = {
 
 export function RecruiterSummaryCard({ summary }: RecruiterSummaryCardProps) {
   return (
-    <section className="glass-card p-6">
-      <h2 className="text-xl font-semibold">採用担当者向けサマリー</h2>
+    <section className="glass-card border-l-4 border-l-sky-400/70 p-6">
+      <CardHeader
+        icon={BriefcaseBusiness}
+        iconClassName="bg-sky-500/15 text-sky-300"
+        title="採用担当者向けサマリー"
+      />
       <p className="mt-2 rounded-md bg-primary/10 px-3 py-2 text-sm text-primary">
         {summary.headline}
       </p>

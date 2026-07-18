@@ -1,4 +1,6 @@
+import { Lightbulb } from "lucide-react";
 import type { EngineeringInsight } from "@/features/wrapped/analysis/engineering-insight";
+import { CardHeader } from "@/features/wrapped/components/card-header";
 
 type EngineeringInsightCardProps = {
   insight: EngineeringInsight;
@@ -6,8 +8,12 @@ type EngineeringInsightCardProps = {
 
 export function EngineeringInsightCard({ insight }: EngineeringInsightCardProps) {
   return (
-    <section className="glass-card p-6">
-      <h2 className="text-xl font-semibold">エンジニア人物像レポート</h2>
+    <section className="glass-card border-l-4 border-l-indigo-400/70 p-6">
+      <CardHeader
+        icon={Lightbulb}
+        iconClassName="bg-indigo-500/15 text-indigo-300"
+        title="エンジニア人物像レポート"
+      />
       <p className="mt-2 rounded-md bg-primary/10 px-3 py-2 text-sm text-primary">
         {insight.profileSummary}
       </p>

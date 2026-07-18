@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { Sparkles } from "lucide-react";
 
 import type { RepositoryMetrics } from "@/types/github";
+import { CardHeader } from "@/features/wrapped/components/card-header";
 
 import { formatNumber } from "../utils";
 
@@ -10,8 +12,12 @@ type MetricsCardProps = {
 
 export function MetricsCard({ metrics }: MetricsCardProps) {
   return (
-    <section className="glass-card p-6">
-      <h2 className="text-xl font-semibold">リポジトリ概要</h2>
+    <section className="glass-card border-l-4 border-l-cyan-400/70 p-6">
+      <CardHeader
+        icon={Sparkles}
+        iconClassName="bg-cyan-500/15 text-cyan-300"
+        title="リポジトリ概要"
+      />
       <dl className="mt-4 grid gap-3 sm:grid-cols-2">
         <div className="rounded-lg border px-4 py-3">
           <dt className="text-xs text-muted-foreground">主要言語</dt>

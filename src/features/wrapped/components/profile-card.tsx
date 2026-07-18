@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { UserRound } from "lucide-react";
 
 import type { GitHubUser } from "@/types/github";
+import { CardHeader } from "@/features/wrapped/components/card-header";
 
 import { formatDate, formatNumber } from "../utils";
 
@@ -11,7 +13,13 @@ type ProfileCardProps = {
 
 export function ProfileCard({ user }: ProfileCardProps) {
   return (
-    <section className="glass-card p-6">
+    <section className="glass-card border-l-4 border-l-emerald-400/70 p-6">
+      <CardHeader
+        description="プロフィールと基本指標"
+        icon={UserRound}
+        iconClassName="bg-emerald-500/15 text-emerald-300"
+        title="プロフィール"
+      />
       <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-start sm:text-left">
         <Image
           alt={`${user.login} icon`}

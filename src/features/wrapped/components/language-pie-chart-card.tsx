@@ -1,8 +1,10 @@
 "use client";
 
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { PieChart as PieChartLucide } from "lucide-react";
 
 import { EmptyState } from "@/components/common/empty-state";
+import { CardHeader } from "@/features/wrapped/components/card-header";
 import type { LanguageStat } from "@/types/github";
 
 type LanguagePieChartCardProps = {
@@ -31,8 +33,12 @@ export function LanguagePieChartCard({ languageStats }: LanguagePieChartCardProp
   }
 
   return (
-    <section className="glass-card p-6">
-      <h2 className="text-xl font-semibold">言語比率チャート</h2>
+    <section className="glass-card border-l-4 border-l-lime-400/70 p-6">
+      <CardHeader
+        icon={PieChartLucide}
+        iconClassName="bg-lime-500/15 text-lime-300"
+        title="言語比率チャート"
+      />
       <div className="mt-4 h-72 w-full">
         <ResponsiveContainer>
           <PieChart>

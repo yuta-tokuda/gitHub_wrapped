@@ -9,8 +9,10 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { BarChart3 } from "lucide-react";
 
 import { EmptyState } from "@/components/common/empty-state";
+import { CardHeader } from "@/features/wrapped/components/card-header";
 import type { GitHubRepository } from "@/types/github";
 
 type RepositoryRankingChartCardProps = {
@@ -42,8 +44,12 @@ export function RepositoryRankingChartCard({
   }
 
   return (
-    <section className="glass-card p-6">
-      <h2 className="text-xl font-semibold">リポジトリランキングチャート</h2>
+    <section className="glass-card border-l-4 border-l-orange-400/70 p-6">
+      <CardHeader
+        icon={BarChart3}
+        iconClassName="bg-orange-500/15 text-orange-300"
+        title="リポジトリランキングチャート"
+      />
       <div className="mt-4 h-72 w-full">
         <ResponsiveContainer>
           <BarChart data={toChartData(repositories)}>

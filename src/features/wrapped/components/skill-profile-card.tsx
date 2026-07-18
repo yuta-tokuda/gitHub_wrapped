@@ -1,4 +1,6 @@
+import { Radar } from "lucide-react";
 import type { SkillArea } from "@/features/wrapped/analysis/skill-profile";
+import { CardHeader } from "@/features/wrapped/components/card-header";
 
 type SkillProfileCardProps = {
   skills: SkillArea[];
@@ -6,11 +8,13 @@ type SkillProfileCardProps = {
 
 export function SkillProfileCard({ skills }: SkillProfileCardProps) {
   return (
-    <section className="glass-card p-6">
-      <h2 className="text-xl font-semibold">スキルマップ（非エンジニア向け）</h2>
-      <p className="mt-1 text-sm text-muted-foreground">
-        GitHubの公開データをもとに、業務での強みを4軸で可視化
-      </p>
+    <section className="glass-card border-l-4 border-l-teal-400/70 p-6">
+      <CardHeader
+        description="GitHubの公開データをもとに、業務での強みを4軸で可視化"
+        icon={Radar}
+        iconClassName="bg-teal-500/15 text-teal-300"
+        title="スキルマップ（非エンジニア向け）"
+      />
       <ul className="mt-5 space-y-4">
         {skills.map((skill) => (
           <li className="rounded-lg border p-4" key={skill.key}>

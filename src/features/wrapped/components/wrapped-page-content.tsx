@@ -121,7 +121,7 @@ export function WrappedPageContent({
       <AnimatedCardSection>
         <WrappedHeader username={username} />
       </AnimatedCardSection>
-      <section className="grid gap-5 px-4 sm:px-6 lg:grid-cols-2">
+      <section className="grid gap-5 px-4 sm:px-6">
         <AnimatedCardSection>
           <ProfileCard user={data.user} />
         </AnimatedCardSection>
@@ -129,7 +129,7 @@ export function WrappedPageContent({
           <MetricsCard metrics={data.metrics} />
         </AnimatedCardSection>
       </section>
-      <section className="grid gap-5 px-4 sm:px-6 lg:grid-cols-2">
+      <section className="grid gap-5 px-4 sm:px-6">
         <AnimatedCardSection>
           <ContributionsCard contributions={data.contributions} />
         </AnimatedCardSection>
@@ -137,7 +137,7 @@ export function WrappedPageContent({
           <DeveloperScoreCard score={score} />
         </AnimatedCardSection>
       </section>
-      <section className="grid gap-5 px-4 sm:px-6 lg:grid-cols-2">
+      <section className="grid gap-5 px-4 sm:px-6">
         <AnimatedCardSection>
           <DeveloperTypeCard developerType={developerType} />
         </AnimatedCardSection>
@@ -145,7 +145,7 @@ export function WrappedPageContent({
           <RecruiterSummaryCard summary={recruiterSummary} />
         </AnimatedCardSection>
       </section>
-      <section className="grid gap-5 px-4 sm:px-6 lg:grid-cols-2">
+      <section className="grid gap-5 px-4 sm:px-6">
         <AnimatedCardSection>
           <DeveloperDnaCard profile={developerDna} />
         </AnimatedCardSection>
@@ -168,7 +168,7 @@ export function WrappedPageContent({
       <AnimatedCardSection>
         <MvpDiagnosticsCard diagnostics={mvpDiagnostics} />
       </AnimatedCardSection>
-      <section className="grid gap-5 px-4 sm:px-6 lg:grid-cols-2">
+      <section className="grid gap-5 px-4 sm:px-6">
         <AnimatedCardSection>
           <LanguageDiversityCard insight={languageDiversity} />
         </AnimatedCardSection>
@@ -176,7 +176,7 @@ export function WrappedPageContent({
           <RepositoryHealthCard insight={repositoryHealth} />
         </AnimatedCardSection>
       </section>
-      <section className="grid gap-5 px-4 sm:px-6 lg:grid-cols-2">
+      <section className="grid gap-5 px-4 sm:px-6">
         <AnimatedCardSection>
           <GrowthCurveCard insight={growthCurve} />
         </AnimatedCardSection>
@@ -190,7 +190,7 @@ export function WrappedPageContent({
       <AnimatedCardSection>
         <LanguagePieChartCard languageStats={data.metrics.languageStats} />
       </AnimatedCardSection>
-      <section className="grid gap-5 px-4 sm:px-6 lg:grid-cols-2">
+      <section className="grid gap-5 px-4 sm:px-6">
         <AnimatedCardSection>
           <RepositoryRankingChartCard repositories={rankingRepositories} />
         </AnimatedCardSection>

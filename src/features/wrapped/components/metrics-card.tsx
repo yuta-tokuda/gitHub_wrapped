@@ -10,7 +10,7 @@ type MetricsCardProps = {
 
 export function MetricsCard({ metrics }: MetricsCardProps) {
   return (
-    <section className="rounded-2xl border bg-card p-6">
+    <section className="glass-card p-6">
       <h2 className="text-xl font-semibold">リポジトリ概要</h2>
       <dl className="mt-4 grid gap-3 sm:grid-cols-2">
         <div className="rounded-lg border px-4 py-3">

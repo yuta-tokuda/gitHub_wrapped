@@ -8,7 +8,7 @@ type ContributionsCardProps = {
 
 export function ContributionsCard({ contributions }: ContributionsCardProps) {
   return (
-    <section className="rounded-2xl border bg-card p-6">
+    <section className="glass-card p-6">
       <h2 className="text-xl font-semibold">コントリビューション概要</h2>
       <p className="mt-1 text-sm text-muted-foreground">
         直近 {contributions.lookbackDays} 日の公開イベントを集計

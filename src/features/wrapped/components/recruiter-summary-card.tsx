@@ -6,7 +6,7 @@ type RecruiterSummaryCardProps = {
 
 export function RecruiterSummaryCard({ summary }: RecruiterSummaryCardProps) {
   return (
-    <section className="rounded-2xl border bg-card p-6">
+    <section className="glass-card p-6">
       <h2 className="text-xl font-semibold">採用担当者向けサマリー</h2>
       <p className="mt-2 rounded-md bg-primary/10 px-3 py-2 text-sm text-primary">
         {summary.headline}

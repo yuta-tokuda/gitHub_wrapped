@@ -20,7 +20,7 @@ export function RepositoriesListCard({ repositories }: RepositoriesListCardProps
   }
 
   return (
-    <section className="rounded-2xl border bg-card p-6">
+    <section className="glass-card p-6">
       <h2 className="text-xl font-semibold">リポジトリランキング</h2>
       <p className="mt-1 text-sm text-muted-foreground">
         Stars順の上位リポジトリを表示しています。

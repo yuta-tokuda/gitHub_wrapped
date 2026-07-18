@@ -6,7 +6,7 @@ type SkillProfileCardProps = {
 
 export function SkillProfileCard({ skills }: SkillProfileCardProps) {
   return (
-    <section className="rounded-2xl border bg-card p-6">
+    <section className="glass-card p-6">
       <h2 className="text-xl font-semibold">スキルマップ（非エンジニア向け）</h2>
       <p className="mt-1 text-sm text-muted-foreground">
         GitHubの公開データをもとに、業務での強みを4軸で可視化

@@ -9,11 +9,13 @@ import type {
 } from "@/features/wrapped/analysis/types";
 import type { RecruiterSummary } from "@/features/wrapped/analysis/recruiter-summary";
 import type { SkillArea } from "@/features/wrapped/analysis/skill-profile";
+import type { EngineeringInsight } from "@/features/wrapped/analysis/engineering-insight";
 import { AchievementsCard } from "@/features/wrapped/components/achievements-card";
 import { AnimatedCardSection } from "@/features/wrapped/components/animated-card-section";
 import { ContributionsCard } from "@/features/wrapped/components/contributions-card";
 import { DeveloperScoreCard } from "@/features/wrapped/components/developer-score-card";
 import { DeveloperTypeCard } from "@/features/wrapped/components/developer-type-card";
+import { EngineeringInsightCard } from "@/features/wrapped/components/engineering-insight-card";
 import { LanguagePieChartCard } from "@/features/wrapped/components/language-pie-chart-card";
 import { MetricsCard } from "@/features/wrapped/components/metrics-card";
 import { ProfileCard } from "@/features/wrapped/components/profile-card";
@@ -30,13 +32,14 @@ type WrappedPageContentProps = {
   developerType: DeveloperType;
   recruiterSummary: RecruiterSummary;
   skillProfile: SkillArea[];
+  engineeringInsight: EngineeringInsight;
   achievements: Achievement[];
   rankingRepositories: WrappedGitHubData["repositories"];
 };
 
 function WrappedHeader({ username }: { username: string }) {
   return (
-    <header className="rounded-2xl border bg-card p-6">
+    <header className="glass-card p-6">
       <p className="text-sm text-muted-foreground">{APP_NAME}</p>
       <h1 className="mt-1 text-3xl font-bold tracking-tight sm:text-5xl">
         {username} のレポート
@@ -71,11 +74,15 @@ export function WrappedPageContent({
   developerType,
   recruiterSummary,
   skillProfile,
+  engineeringInsight,
   achievements,
   rankingRepositories,
 }: WrappedPageContentProps) {
   return (
-    <main className="mx-auto w-full max-w-6xl space-y-5 px-2 py-6 sm:space-y-6 sm:py-8">
+    <main className="relative mx-auto w-full max-w-6xl space-y-5 px-2 py-6 sm:space-y-6 sm:py-8">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64 bg-[radial-gradient(circle_at_top,_rgb(16_185_129/0.14),_transparent_58%)]" />
+      <div className="pointer-events-none absolute right-0 top-40 -z-10 h-64 w-64 rounded-full bg-emerald-400/10 blur-3xl" />
+      <div className="pointer-events-none absolute left-0 top-[28rem] -z-10 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl" />
       <AnimatedCardSection>
         <WrappedHeader username={username} />
       </AnimatedCardSection>
@@ -105,6 +112,9 @@ export function WrappedPageContent({
       </section>
       <AnimatedCardSection>
         <SkillProfileCard skills={skillProfile} />
+      </AnimatedCardSection>
+      <AnimatedCardSection>
+        <EngineeringInsightCard insight={engineeringInsight} />
       </AnimatedCardSection>
       <AnimatedCardSection>
         <AchievementsCard achievements={achievements} />

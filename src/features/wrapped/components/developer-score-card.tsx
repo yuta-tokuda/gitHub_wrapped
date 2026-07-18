@@ -48,7 +48,7 @@ export function DeveloperScoreCard({ score }: DeveloperScoreCardProps) {
   >;
 
   return (
-    <section className="rounded-2xl border bg-card p-6">
+    <section className="glass-card p-6">
       <h2 className="text-xl font-semibold">開発者スコア</h2>
       <p className="mt-1 text-sm text-muted-foreground">
         リポジトリ・スター・フォロワー・貢献度などから算出した総合評価

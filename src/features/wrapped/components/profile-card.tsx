@@ -11,7 +11,7 @@ type ProfileCardProps = {
 
 export function ProfileCard({ user }: ProfileCardProps) {
   return (
-    <section className="rounded-2xl border bg-card p-6">
+    <section className="glass-card p-6">
       <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-start sm:text-left">
         <Image
           alt={`${user.login} icon`}

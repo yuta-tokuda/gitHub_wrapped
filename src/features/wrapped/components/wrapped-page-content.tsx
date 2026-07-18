@@ -4,25 +4,39 @@ import { EmptyState } from "@/components/common/empty-state";
 import { APP_NAME } from "@/constants/app";
 import type {
   Achievement,
+  DeveloperDnaProfile,
+  DeveloperPersonality,
   DeveloperScoreResult,
   DeveloperType,
 } from "@/features/wrapped/analysis/types";
+import type { FuturePotentialInsight } from "@/features/wrapped/analysis/future-potential";
+import type { GrowthCurveInsight } from "@/features/wrapped/analysis/growth-curve";
+import type { LanguageDiversityInsight } from "@/features/wrapped/analysis/language-diversity";
 import type { RecruiterSummary } from "@/features/wrapped/analysis/recruiter-summary";
+import type { RepositoryHealthInsight } from "@/features/wrapped/analysis/repository-health";
+import type { RepositoryInsights } from "@/features/wrapped/analysis/repository-insights";
 import type { SkillArea } from "@/features/wrapped/analysis/skill-profile";
 import type { EngineeringInsight } from "@/features/wrapped/analysis/engineering-insight";
 import type { PublicDataInsight } from "@/features/wrapped/analysis/public-data-insight";
 import { AchievementsCard } from "@/features/wrapped/components/achievements-card";
 import { AnimatedCardSection } from "@/features/wrapped/components/animated-card-section";
 import { ContributionsCard } from "@/features/wrapped/components/contributions-card";
+import { DeveloperDnaCard } from "@/features/wrapped/components/developer-dna-card";
+import { DeveloperPersonalityCard } from "@/features/wrapped/components/developer-personality-card";
 import { DeveloperScoreCard } from "@/features/wrapped/components/developer-score-card";
 import { DeveloperTypeCard } from "@/features/wrapped/components/developer-type-card";
 import { EngineeringInsightCard } from "@/features/wrapped/components/engineering-insight-card";
+import { FuturePotentialCard } from "@/features/wrapped/components/future-potential-card";
+import { GrowthCurveCard } from "@/features/wrapped/components/growth-curve-card";
+import { LanguageDiversityCard } from "@/features/wrapped/components/language-diversity-card";
 import { LanguagePieChartCard } from "@/features/wrapped/components/language-pie-chart-card";
 import { MetricsCard } from "@/features/wrapped/components/metrics-card";
 import { ProfileCard } from "@/features/wrapped/components/profile-card";
 import { PublicDataInsightCard } from "@/features/wrapped/components/public-data-insight-card";
 import { RepositoriesListCard } from "@/features/wrapped/components/repositories-list-card";
 import { RecruiterSummaryCard } from "@/features/wrapped/components/recruiter-summary-card";
+import { RepositoryHealthCard } from "@/features/wrapped/components/repository-health-card";
+import { RepositoryInsightsCard } from "@/features/wrapped/components/repository-insights-card";
 import { RepositoryRankingChartCard } from "@/features/wrapped/components/repository-ranking-chart-card";
 import { ShareActions } from "@/features/wrapped/components/share-actions";
 import { SkillProfileCard } from "@/features/wrapped/components/skill-profile-card";
@@ -32,11 +46,18 @@ type WrappedPageContentProps = {
   data: WrappedGitHubData;
   username: string;
   score: DeveloperScoreResult;
+  developerDna: DeveloperDnaProfile;
+  developerPersonality: DeveloperPersonality;
   developerType: DeveloperType;
   recruiterSummary: RecruiterSummary;
   skillProfile: SkillArea[];
   engineeringInsight: EngineeringInsight;
   publicDataInsight: PublicDataInsight;
+  languageDiversity: LanguageDiversityInsight;
+  repositoryHealth: RepositoryHealthInsight;
+  growthCurve: GrowthCurveInsight;
+  futurePotential: FuturePotentialInsight;
+  repositoryInsights: RepositoryInsights;
   achievements: Achievement[];
   rankingRepositories: WrappedGitHubData["repositories"];
 };
@@ -76,11 +97,18 @@ export function WrappedPageContent({
   data,
   username,
   score,
+  developerDna,
+  developerPersonality,
   developerType,
   recruiterSummary,
   skillProfile,
   engineeringInsight,
   publicDataInsight,
+  languageDiversity,
+  repositoryHealth,
+  growthCurve,
+  futurePotential,
+  repositoryInsights,
   achievements,
   rankingRepositories,
 }: WrappedPageContentProps) {
@@ -113,6 +141,14 @@ export function WrappedPageContent({
           <RecruiterSummaryCard summary={recruiterSummary} />
         </AnimatedCardSection>
       </section>
+      <section className="grid gap-5 px-4 sm:px-6 lg:grid-cols-2">
+        <AnimatedCardSection>
+          <DeveloperDnaCard profile={developerDna} />
+        </AnimatedCardSection>
+        <AnimatedCardSection>
+          <DeveloperPersonalityCard personality={developerPersonality} />
+        </AnimatedCardSection>
+      </section>
       <AnimatedCardSection>
         <SkillProfileCard skills={skillProfile} />
       </AnimatedCardSection>
@@ -124,6 +160,25 @@ export function WrappedPageContent({
       </AnimatedCardSection>
       <AnimatedCardSection>
         <AchievementsCard achievements={achievements} />
+      </AnimatedCardSection>
+      <section className="grid gap-5 px-4 sm:px-6 lg:grid-cols-2">
+        <AnimatedCardSection>
+          <LanguageDiversityCard insight={languageDiversity} />
+        </AnimatedCardSection>
+        <AnimatedCardSection>
+          <RepositoryHealthCard insight={repositoryHealth} />
+        </AnimatedCardSection>
+      </section>
+      <section className="grid gap-5 px-4 sm:px-6 lg:grid-cols-2">
+        <AnimatedCardSection>
+          <GrowthCurveCard insight={growthCurve} />
+        </AnimatedCardSection>
+        <AnimatedCardSection>
+          <FuturePotentialCard insight={futurePotential} />
+        </AnimatedCardSection>
+      </section>
+      <AnimatedCardSection>
+        <RepositoryInsightsCard insight={repositoryInsights} />
       </AnimatedCardSection>
       <AnimatedCardSection>
         <LanguagePieChartCard languageStats={data.metrics.languageStats} />

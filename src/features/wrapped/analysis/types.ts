@@ -28,3 +28,39 @@ export type Achievement = {
   title: string;
   description: string;
 };
+
+export type DeveloperDnaKey =
+  | "builder"
+  | "explorer"
+  | "maintainer"
+  | "collaborator"
+  | "experimenter"
+  | "teacher"
+  | "creator"
+  | "specialist"
+  | "generalist"
+  | "debugger";
+
+export type DeveloperDna = {
+  key: DeveloperDnaKey;
+  label: string;
+  score: number;
+  formula: string;
+  reason: string;
+  description: string;
+};
+
+export type DeveloperDnaProfile = {
+  dna: DeveloperDna[];
+  dominantDna: DeveloperDna;
+  topDnaKeys: DeveloperDnaKey[];
+  balanceScore: number;
+};
+
+export type DeveloperPersonality = {
+  key: string;
+  title: string;
+  description: string;
+  matchedDna: DeveloperDnaKey[];
+  reason: string;
+};

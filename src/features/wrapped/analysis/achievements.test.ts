@@ -10,9 +10,10 @@ describe("collectAchievements", () => {
 
     expect(result.length).toBeGreaterThan(0);
     expect(result.some((item) => item.key === "active-dev")).toBe(true);
+    expect(result.some((item) => item.key === "first-repo")).toBe(true);
   });
 
-  it("limits achievements to 20", () => {
+  it("limits achievements to 40", () => {
     const input = createWrappedFixture({
       repositories: Array.from({ length: 30 }, (_, index) => ({
         id: index + 1,
@@ -49,6 +50,6 @@ describe("collectAchievements", () => {
     });
 
     const result = collectAchievements(input);
-    expect(result.length).toBeLessThanOrEqual(20);
+    expect(result.length).toBeLessThanOrEqual(40);
   });
 });

@@ -4,10 +4,17 @@ import { APP_NAME, APP_URL } from "@/constants/app";
 import { collectAchievements } from "@/features/wrapped/analysis/achievements";
 import { TOP_REPOSITORIES_LIMIT } from "@/features/wrapped/analysis/constants";
 import { calculateDeveloperScore } from "@/features/wrapped/analysis/developer-score";
+import { buildDeveloperDnaProfile } from "@/features/wrapped/analysis/developer-dna";
+import { analyzeDeveloperPersonality } from "@/features/wrapped/analysis/developer-personality";
 import { analyzeDeveloperType } from "@/features/wrapped/analysis/developer-type";
 import { buildEngineeringInsight } from "@/features/wrapped/analysis/engineering-insight";
+import { buildFuturePotentialInsight } from "@/features/wrapped/analysis/future-potential";
+import { buildGrowthCurveInsight } from "@/features/wrapped/analysis/growth-curve";
+import { buildLanguageDiversityInsight } from "@/features/wrapped/analysis/language-diversity";
 import { buildPublicDataInsight } from "@/features/wrapped/analysis/public-data-insight";
 import { buildRecruiterSummary } from "@/features/wrapped/analysis/recruiter-summary";
+import { buildRepositoryHealthInsight } from "@/features/wrapped/analysis/repository-health";
+import { buildRepositoryInsights } from "@/features/wrapped/analysis/repository-insights";
 import { buildSkillProfile } from "@/features/wrapped/analysis/skill-profile";
 import { WrappedPageContent } from "@/features/wrapped/components/wrapped-page-content";
 import { GitHubApiError, getWrappedGitHubData } from "@/lib/github";
@@ -81,11 +88,18 @@ export default async function WrappedPage({ params }: WrappedPageProps) {
   const { username } = await params;
   const data = await fetchWrappedData(username);
   const score = calculateDeveloperScore(data);
+  const developerDna = buildDeveloperDnaProfile(data);
+  const developerPersonality = analyzeDeveloperPersonality(developerDna);
   const developerType = analyzeDeveloperType(data);
   const recruiterSummary = buildRecruiterSummary(data, score, developerType);
   const skillProfile = buildSkillProfile(data);
   const engineeringInsight = buildEngineeringInsight(data, score);
   const publicDataInsight = buildPublicDataInsight(data);
+  const languageDiversity = buildLanguageDiversityInsight(data);
+  const repositoryHealth = buildRepositoryHealthInsight(data);
+  const growthCurve = buildGrowthCurveInsight(data);
+  const futurePotential = buildFuturePotentialInsight(developerDna, score, growthCurve);
+  const repositoryInsights = buildRepositoryInsights(data);
   const achievements = collectAchievements(data);
   const rankingRepositories = data.repositories
     .slice()
@@ -101,10 +115,17 @@ export default async function WrappedPage({ params }: WrappedPageProps) {
       <WrappedPageContent
         achievements={achievements}
         data={data}
+        developerDna={developerDna}
+        developerPersonality={developerPersonality}
         developerType={developerType}
         engineeringInsight={engineeringInsight}
+        futurePotential={futurePotential}
+        growthCurve={growthCurve}
+        languageDiversity={languageDiversity}
         publicDataInsight={publicDataInsight}
         recruiterSummary={recruiterSummary}
+        repositoryHealth={repositoryHealth}
+        repositoryInsights={repositoryInsights}
         skillProfile={skillProfile}
         rankingRepositories={rankingRepositories}
         score={score}

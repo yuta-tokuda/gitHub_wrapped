@@ -39,15 +39,15 @@ export function ProfileCard({ user }: ProfileCardProps) {
       </div>
       <dl className="mt-6 grid grid-cols-3 gap-3 text-center">
         <div className="rounded-lg border px-3 py-4">
-          <dt className="text-xs text-muted-foreground">Followers</dt>
+          <dt className="text-xs text-muted-foreground">フォロワー</dt>
           <dd className="mt-1 text-xl font-semibold">{formatNumber(user.followers)}</dd>
         </div>
         <div className="rounded-lg border px-3 py-4">
-          <dt className="text-xs text-muted-foreground">Following</dt>
+          <dt className="text-xs text-muted-foreground">フォロー中</dt>
           <dd className="mt-1 text-xl font-semibold">{formatNumber(user.following)}</dd>
         </div>
         <div className="rounded-lg border px-3 py-4">
-          <dt className="text-xs text-muted-foreground">Public Repositories</dt>
+          <dt className="text-xs text-muted-foreground">公開リポジトリ</dt>
           <dd className="mt-1 text-xl font-semibold">{formatNumber(user.publicRepos)}</dd>
         </div>
       </dl>

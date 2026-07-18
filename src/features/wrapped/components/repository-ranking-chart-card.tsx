@@ -36,14 +36,14 @@ export function RepositoryRankingChartCard({
     return (
       <EmptyState
         description="公開リポジトリが無いためランキングチャートを表示できません。"
-        title="Repository Ranking Chart"
+        title="リポジトリランキングチャート"
       />
     );
   }
 
   return (
     <section className="rounded-2xl border bg-card p-6">
-      <h2 className="text-xl font-semibold">Repository Ranking Chart</h2>
+      <h2 className="text-xl font-semibold">リポジトリランキングチャート</h2>
       <div className="mt-4 h-72 w-full">
         <ResponsiveContainer>
           <BarChart data={toChartData(repositories)}>

@@ -1,6 +1,5 @@
-import { Search } from "lucide-react";
-
 import { searchGitHubUserAction } from "@/features/home/actions";
+import { SearchSubmitButton } from "@/features/home/components/search-submit-button";
 
 type SearchFormProps = {
   defaultUsername: string;
@@ -9,7 +8,11 @@ type SearchFormProps = {
 
 export function SearchForm({ defaultUsername, errorMessage }: SearchFormProps) {
   return (
-    <form action={searchGitHubUserAction} className="mt-8 w-full max-w-xl">
+    <form
+      action={searchGitHubUserAction}
+      aria-live="polite"
+      className="mt-8 w-full max-w-xl"
+    >
       <label className="sr-only" htmlFor="github-username">
         GitHubユーザー名
       </label>
@@ -24,13 +27,7 @@ export function SearchForm({ defaultUsername, errorMessage }: SearchFormProps) {
           required
           type="text"
         />
-        <button
-          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-ring"
-          type="submit"
-        >
-          <Search className="size-4" aria-hidden />
-          検索
-        </button>
+        <SearchSubmitButton />
       </div>
       {errorMessage ? (
         <p

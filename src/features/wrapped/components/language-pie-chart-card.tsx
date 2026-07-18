@@ -25,14 +25,14 @@ export function LanguagePieChartCard({ languageStats }: LanguagePieChartCardProp
     return (
       <EmptyState
         description="Language情報がないためチャートを描画できません。"
-        title="Language Pie Chart"
+        title="言語比率チャート"
       />
     );
   }
 
   return (
     <section className="rounded-2xl border bg-card p-6">
-      <h2 className="text-xl font-semibold">Language Pie Chart</h2>
+      <h2 className="text-xl font-semibold">言語比率チャート</h2>
       <div className="mt-4 h-72 w-full">
         <ResponsiveContainer>
           <PieChart>

@@ -17,7 +17,7 @@ export function AchievementsCard({ achievements }: AchievementsCardProps) {
 
   return (
     <section className="rounded-2xl border bg-card p-6">
-      <h2 className="text-xl font-semibold">Achievement Badges</h2>
+      <h2 className="text-xl font-semibold">実績バッジ</h2>
       <p className="mt-1 text-sm text-muted-foreground">
         開発傾向に応じて獲得したバッジ
       </p>

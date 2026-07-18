@@ -15,7 +15,7 @@ function getTypeByLanguage(input: WrappedAnalysisInput): DeveloperType | null {
   if (includesLanguage(languageStats, ["TypeScript", "JavaScript", "CSS", "HTML"])) {
     return {
       key: "frontend-engineer",
-      label: "Frontend Engineer",
+      label: "フロントエンドエンジニア",
       description: "UI技術を主軸に、体験価値を重視して開発するタイプ。",
     };
   }
@@ -23,7 +23,7 @@ function getTypeByLanguage(input: WrappedAnalysisInput): DeveloperType | null {
   if (includesLanguage(languageStats, ["Go", "Rust", "Java", "Kotlin"])) {
     return {
       key: "backend-engineer",
-      label: "Backend Engineer",
+      label: "バックエンドエンジニア",
       description: "信頼性とスケーラビリティを重視するサーバー志向タイプ。",
     };
   }
@@ -38,7 +38,7 @@ function getTypeByRepository(input: WrappedAnalysisInput): DeveloperType | null 
   if (hasManyStars || hasManyForks) {
     return {
       key: "oss-lover",
-      label: "OSS Lover",
+      label: "OSSラバー",
       description: "コミュニティへの公開と改善サイクルを楽しむオープンソース型。",
     };
   }
@@ -46,7 +46,7 @@ function getTypeByRepository(input: WrappedAnalysisInput): DeveloperType | null 
   if (input.metrics.languageStats.length >= 4) {
     return {
       key: "fullstack",
-      label: "Fullstack",
+      label: "フルスタック",
       description: "複数領域を横断して価値を届けるフルスタック型。",
     };
   }
@@ -58,7 +58,7 @@ function getTypeByActivity(input: WrappedAnalysisInput): DeveloperType | null {
   if (input.contributions.totalContributions >= 120) {
     return {
       key: "consistent-builder",
-      label: "Consistent Builder",
+      label: "継続型ビルダー",
       description: "継続的なコミットで着実に成果を積み上げるタイプ。",
     };
   }
@@ -66,7 +66,7 @@ function getTypeByActivity(input: WrappedAnalysisInput): DeveloperType | null {
   if (input.repositories.length > 0 && input.user.publicRepos <= 5) {
     return {
       key: "craft-focused",
-      label: "Craft Focused",
+      label: "クラフト重視",
       description: "少数精鋭で品質にこだわるクラフト志向タイプ。",
     };
   }
@@ -80,7 +80,7 @@ export function analyzeDeveloperType(input: WrappedAnalysisInput): DeveloperType
     getTypeByLanguage(input) ??
     getTypeByActivity(input) ?? {
       key: "steady-explorer",
-      label: "Steady Explorer",
+      label: "堅実な探求者",
       description: "幅広い技術を探索しながら堅実に学習を続けるタイプ。",
     }
   );

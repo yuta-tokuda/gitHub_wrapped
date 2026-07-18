@@ -5,6 +5,8 @@ import { collectAchievements } from "@/features/wrapped/analysis/achievements";
 import { TOP_REPOSITORIES_LIMIT } from "@/features/wrapped/analysis/constants";
 import { calculateDeveloperScore } from "@/features/wrapped/analysis/developer-score";
 import { analyzeDeveloperType } from "@/features/wrapped/analysis/developer-type";
+import { buildRecruiterSummary } from "@/features/wrapped/analysis/recruiter-summary";
+import { buildSkillProfile } from "@/features/wrapped/analysis/skill-profile";
 import { WrappedPageContent } from "@/features/wrapped/components/wrapped-page-content";
 import { GitHubApiError, getWrappedGitHubData } from "@/lib/github";
 
@@ -78,6 +80,8 @@ export default async function WrappedPage({ params }: WrappedPageProps) {
   const data = await fetchWrappedData(username);
   const score = calculateDeveloperScore(data);
   const developerType = analyzeDeveloperType(data);
+  const recruiterSummary = buildRecruiterSummary(data, score, developerType);
+  const skillProfile = buildSkillProfile(data);
   const achievements = collectAchievements(data);
   const rankingRepositories = data.repositories
     .slice()
@@ -94,6 +98,8 @@ export default async function WrappedPage({ params }: WrappedPageProps) {
         achievements={achievements}
         data={data}
         developerType={developerType}
+        recruiterSummary={recruiterSummary}
+        skillProfile={skillProfile}
         rankingRepositories={rankingRepositories}
         score={score}
         username={data.user.login}

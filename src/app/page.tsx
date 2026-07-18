@@ -11,7 +11,7 @@ type HomePageProps = {
 };
 
 export const metadata: Metadata = {
-  title: "Top",
+  title: "トップ",
   description: APP_DESCRIPTION,
 };
 
@@ -35,7 +35,7 @@ export default async function Home({ searchParams }: HomePageProps) {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-5xl flex-col items-center justify-center px-6 py-16 text-center">
       <p className="rounded-full border bg-card px-3 py-1 text-xs font-medium tracking-wide text-muted-foreground">
-        Spotify Wrapped Inspired
+        Spotify Wrapped風
       </p>
       <h1 className="mt-6 text-balance text-4xl font-bold tracking-tight sm:text-6xl">
         {APP_NAME}
@@ -47,25 +47,25 @@ export default async function Home({ searchParams }: HomePageProps) {
       <SearchForm defaultUsername={defaultUsername} errorMessage={errorMessage || null} />
       <section className="mt-10 grid w-full max-w-4xl gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
         <article className="rounded-lg border bg-card p-4">
-          <h2 className="text-sm font-semibold">Profile Insights</h2>
+          <h2 className="text-sm font-semibold">プロフィール分析</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Followers・Repository・Top Languageを可視化
+            フォロワー・リポジトリ・主要言語を可視化
           </p>
         </article>
         <article className="rounded-lg border bg-card p-4">
-          <h2 className="text-sm font-semibold">Developer Score</h2>
+          <h2 className="text-sm font-semibold">開発者スコア</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             活動量や更新頻度などから100点満点で算出
           </p>
         </article>
         <article className="rounded-lg border bg-card p-4">
-          <h2 className="text-sm font-semibold">Achievement</h2>
+          <h2 className="text-sm font-semibold">実績バッジ</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             コーディング傾向に応じた独自バッジを付与
           </p>
         </article>
         <article className="rounded-lg border bg-card p-4">
-          <h2 className="text-sm font-semibold">Share Ready</h2>
+          <h2 className="text-sm font-semibold">シェア画像</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             SNSシェア向けOG画像を自動生成
           </p>

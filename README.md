@@ -9,10 +9,15 @@ GitHubユーザーの公開活動を分析し、Spotify Wrapped風に可視化�
 - Wrappedレポート表示（プロフィール / 指標 /ランキング / チャート）
 - Developer Score（100点満点）と内訳表示
 - Developer Type 判定
-- Achievement Badge（20種）
+- Developer DNA（10指標, 0-100）
+- Developer Personality（複合DNA判定）
+- Achievement Badge（30種以上、最大40件表示）
 - Recruiter Summary（採用担当向け要約）
 - Skill Map（非エンジニア向けスキル可視化）
 - Engineering Insight（人物像・配属相性・面談質問）
+- Language Diversity / Repository Health / Growth Curve / Future Potential
+- Repository Insights（上位リポジトリ要約）
+- 開発スタイル診断 20（分析結果・根拠付き）
 - OGP画像生成（`next/og`）
 - SEO対応（Metadata / OpenGraph / Twitter Card / JSON-LD / robots / sitemap）
 
@@ -104,14 +109,20 @@ pnpm dev -- -p 3001
 ### Developer Type / Achievement / Insight
 
 - Developer Type: 言語傾向・スター・活動量から判定
-- Achievement: 条件ベースで最大20件
+- Developer DNA: Builder / Explorer / Maintainer など10軸を数値化
+- Developer Personality: 複数DNAを組み合わせて肩書きを判定
+- Achievement: 条件ベースで最大40件
 - Engineering Insight: 開発スタイル、協働傾向、成長シグナル、面談質問を生成
+- MVP20診断: 夜型傾向、週末傾向、継続性、OSS波及力など20項目を分析
 
 実装:
 
 - `src/features/wrapped/analysis/developer-type.ts`
+- `src/features/wrapped/analysis/developer-dna.ts`
+- `src/features/wrapped/analysis/developer-personality.ts`
 - `src/features/wrapped/analysis/achievements.ts`
 - `src/features/wrapped/analysis/engineering-insight.ts`
+- `src/features/wrapped/analysis/mvp-diagnostics.ts`
 
 ## 制約と注意点
 

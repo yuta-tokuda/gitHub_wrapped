@@ -38,6 +38,19 @@ function pickStrengths(
     strengths.push("README/Docs志向があり、保守性への配慮がある");
   }
 
+  if (strengths.length === 0) {
+    // Why this fallback:
+    // 公開データが少ない候補者でも、採用サマリーの「強み」欄が空になると
+    // 読み手が判断しづらいため、最低1つは観測可能なポジティブ要素を返す。
+    if (input.repositories.length >= 1) {
+      strengths.push("公開リポジトリを継続して運用しており、開発の再現性がある");
+    } else if (input.contributions.totalContributions > 0) {
+      strengths.push("公開活動があり、学習・実装の継続姿勢が確認できる");
+    } else {
+      strengths.push("公開プロフィール情報が整備されており、発信意識がある");
+    }
+  }
+
   return strengths.slice(0, 3);
 }
 

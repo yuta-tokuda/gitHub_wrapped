@@ -6,6 +6,7 @@ import { TOP_REPOSITORIES_LIMIT } from "@/features/wrapped/analysis/constants";
 import { calculateDeveloperScore } from "@/features/wrapped/analysis/developer-score";
 import { analyzeDeveloperType } from "@/features/wrapped/analysis/developer-type";
 import { buildEngineeringInsight } from "@/features/wrapped/analysis/engineering-insight";
+import { buildPublicDataInsight } from "@/features/wrapped/analysis/public-data-insight";
 import { buildRecruiterSummary } from "@/features/wrapped/analysis/recruiter-summary";
 import { buildSkillProfile } from "@/features/wrapped/analysis/skill-profile";
 import { WrappedPageContent } from "@/features/wrapped/components/wrapped-page-content";
@@ -84,6 +85,7 @@ export default async function WrappedPage({ params }: WrappedPageProps) {
   const recruiterSummary = buildRecruiterSummary(data, score, developerType);
   const skillProfile = buildSkillProfile(data);
   const engineeringInsight = buildEngineeringInsight(data, score);
+  const publicDataInsight = buildPublicDataInsight(data);
   const achievements = collectAchievements(data);
   const rankingRepositories = data.repositories
     .slice()
@@ -101,6 +103,7 @@ export default async function WrappedPage({ params }: WrappedPageProps) {
         data={data}
         developerType={developerType}
         engineeringInsight={engineeringInsight}
+        publicDataInsight={publicDataInsight}
         recruiterSummary={recruiterSummary}
         skillProfile={skillProfile}
         rankingRepositories={rankingRepositories}

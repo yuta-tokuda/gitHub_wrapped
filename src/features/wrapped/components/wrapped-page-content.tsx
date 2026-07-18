@@ -10,6 +10,7 @@ import type {
 import type { RecruiterSummary } from "@/features/wrapped/analysis/recruiter-summary";
 import type { SkillArea } from "@/features/wrapped/analysis/skill-profile";
 import type { EngineeringInsight } from "@/features/wrapped/analysis/engineering-insight";
+import type { PublicDataInsight } from "@/features/wrapped/analysis/public-data-insight";
 import { AchievementsCard } from "@/features/wrapped/components/achievements-card";
 import { AnimatedCardSection } from "@/features/wrapped/components/animated-card-section";
 import { ContributionsCard } from "@/features/wrapped/components/contributions-card";
@@ -19,6 +20,7 @@ import { EngineeringInsightCard } from "@/features/wrapped/components/engineerin
 import { LanguagePieChartCard } from "@/features/wrapped/components/language-pie-chart-card";
 import { MetricsCard } from "@/features/wrapped/components/metrics-card";
 import { ProfileCard } from "@/features/wrapped/components/profile-card";
+import { PublicDataInsightCard } from "@/features/wrapped/components/public-data-insight-card";
 import { RepositoriesListCard } from "@/features/wrapped/components/repositories-list-card";
 import { RecruiterSummaryCard } from "@/features/wrapped/components/recruiter-summary-card";
 import { RepositoryRankingChartCard } from "@/features/wrapped/components/repository-ranking-chart-card";
@@ -33,6 +35,7 @@ type WrappedPageContentProps = {
   recruiterSummary: RecruiterSummary;
   skillProfile: SkillArea[];
   engineeringInsight: EngineeringInsight;
+  publicDataInsight: PublicDataInsight;
   achievements: Achievement[];
   rankingRepositories: WrappedGitHubData["repositories"];
 };
@@ -75,6 +78,7 @@ export function WrappedPageContent({
   recruiterSummary,
   skillProfile,
   engineeringInsight,
+  publicDataInsight,
   achievements,
   rankingRepositories,
 }: WrappedPageContentProps) {
@@ -112,6 +116,9 @@ export function WrappedPageContent({
       </AnimatedCardSection>
       <AnimatedCardSection>
         <EngineeringInsightCard insight={engineeringInsight} />
+      </AnimatedCardSection>
+      <AnimatedCardSection>
+        <PublicDataInsightCard insight={publicDataInsight} />
       </AnimatedCardSection>
       <AnimatedCardSection>
         <AchievementsCard achievements={achievements} />

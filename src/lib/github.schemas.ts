@@ -74,3 +74,8 @@ export const githubPinnedRepositoriesSchema = z.object({
       .nullable(),
   }),
 });
+
+export const githubRepositoryLanguagesSchema = z.record(
+  z.string(),
+  z.number().int().nonnegative(),
+);

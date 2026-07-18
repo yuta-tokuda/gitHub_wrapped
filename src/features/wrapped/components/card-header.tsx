@@ -14,17 +14,21 @@ export function CardHeader({
   iconClassName,
 }: CardHeaderProps) {
   return (
-    <div className="flex items-start gap-3">
-      <div
-        className={`inline-flex size-9 shrink-0 items-center justify-center rounded-lg ${iconClassName}`}
-      >
-        <Icon aria-hidden className="size-4" />
-      </div>
-      <div>
-        <h2 className="text-xl font-semibold">{title}</h2>
-        {description ? (
-          <p className="mt-1 text-sm text-muted-foreground">{description}</p>
-        ) : null}
+    <div className="border-b border-white/10 pb-3">
+      <div className="flex items-start gap-3">
+        <div
+          className={`inline-flex size-9 shrink-0 items-center justify-center rounded-lg ${iconClassName}`}
+        >
+          <Icon aria-hidden className="size-4" />
+        </div>
+        <div>
+          <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
+          {description ? (
+            <p className="mt-1 text-sm leading-relaxed text-muted-foreground/90">
+              {description}
+            </p>
+          ) : null}
+        </div>
       </div>
     </div>
   );

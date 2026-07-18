@@ -21,21 +21,42 @@ export function DeveloperDnaCard({ profile }: DeveloperDnaCardProps) {
         <span className="font-semibold text-foreground">{profile.dominantDna.label}</span>
       </p>
       <ul className="mt-4 grid gap-3 lg:grid-cols-2">
-        {profile.dna.map((item) => (
-          <li className="rounded-lg border p-4" key={item.key}>
+        {profile.dna.map((item, index) => (
+          <li
+            className="rounded-lg border border-emerald-300/20 bg-emerald-500/[0.04] p-4"
+            key={item.key}
+          >
             <div className="flex items-center justify-between gap-3">
-              <p className="text-sm font-semibold">{item.label}</p>
-              <p className="text-sm font-semibold">{item.score} / 100</p>
+              <div className="flex items-center gap-2">
+                {index < 3 ? (
+                  <span className="rounded-full border border-emerald-300/40 bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold text-emerald-100">
+                    TOP {index + 1}
+                  </span>
+                ) : null}
+                <p className="text-sm font-semibold">{item.label}</p>
+              </div>
+              <p className="rounded-full bg-emerald-500/15 px-2.5 py-1 text-sm font-semibold text-emerald-100">
+                {item.score} / 100
+              </p>
             </div>
-            <div aria-hidden className="mt-2 h-2 w-full overflow-hidden rounded-full bg-muted">
+            <div
+              aria-hidden
+              className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-emerald-900/30"
+            >
               <div
-                className="h-full rounded-full bg-emerald-400 transition-all"
+                className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-300 transition-all"
                 style={{ width: `${item.score}%` }}
               />
             </div>
-            <p className="mt-2 text-xs text-muted-foreground">式: {item.formula}</p>
-            <p className="mt-1 text-xs text-muted-foreground">{item.reason}</p>
-            <p className="mt-1 text-xs text-muted-foreground">{item.description}</p>
+            <p className="mt-2 rounded-md border border-emerald-300/25 bg-emerald-500/10 px-2.5 py-1.5 text-xs text-emerald-100">
+              算出式: {item.formula}
+            </p>
+            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+              <span className="font-semibold text-foreground/90">理由:</span> {item.reason}
+            </p>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+              <span className="font-semibold text-foreground/90">説明:</span> {item.description}
+            </p>
           </li>
         ))}
       </ul>

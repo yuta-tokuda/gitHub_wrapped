@@ -16,6 +16,7 @@ import {
   githubPinnedRepositoryNodeSchema,
   githubPinnedRepositoriesSchema,
   githubPublicEventsSchema,
+  githubRepositoryLanguagesSchema,
   githubRepositoriesSchema,
   githubUserSchema,
 } from "@/lib/github.schemas";
@@ -154,6 +155,7 @@ function toGitHubRepository(
     createdAt: value.created_at,
     updatedAt: value.updated_at,
     pushedAt: value.pushed_at,
+    languages: value.language ? [value.language] : [],
   };
 }
 
@@ -173,7 +175,53 @@ function toGitHubPinnedRepository(node: GitHubPinnedNode): GitHubRepository {
     createdAt: node.createdAt,
     updatedAt: node.updatedAt,
     pushedAt: node.pushedAt,
+    languages: node.primaryLanguage?.name ? [node.primaryLanguage.name] : [],
   };
+}
+
+function toSortedLanguageNames(value: Record<string, number>): string[] {
+  return Object.entries(value)
+    .sort((a, b) => b[1] - a[1])
+    .map(([name]) => name);
+}
+
+async function getRepositoryLanguages(
+  owner: string,
+  repository: GitHubRepository,
+): Promise<string[]> {
+  try {
+    const languages = await fetchGitHubJson(
+      `/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repository.name)}/languages`,
+      githubRepositoryLanguagesSchema,
+      {
+        tags: [`github-repo-languages:${owner}:${repository.name}`],
+      },
+    );
+    return toSortedLanguageNames(languages);
+  } catch (error) {
+    if (error instanceof GitHubApiError && error.status === 404) {
+      return repository.language ? [repository.language] : [];
+    }
+
+    return repository.language ? [repository.language] : [];
+  }
+}
+
+export async function withRepositoryLanguages(
+  owner: string,
+  repositories: GitHubRepository[],
+): Promise<GitHubRepository[]> {
+  const enriched = await Promise.all(
+    repositories.map(async (repository) => {
+      const languages = await getRepositoryLanguages(owner, repository);
+      return {
+        ...repository,
+        languages,
+      };
+    }),
+  );
+
+  return enriched;
 }
 
 export async function getGitHubUser(username: string): Promise<GitHubUser> {

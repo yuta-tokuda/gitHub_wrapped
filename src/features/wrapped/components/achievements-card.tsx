@@ -27,8 +27,13 @@ export function AchievementsCard({ achievements }: AchievementsCardProps) {
       />
       <ul className="mt-5 grid gap-3 sm:grid-cols-2">
         {achievements.map((achievement) => (
-          <li className="rounded-lg border px-4 py-3" key={achievement.key}>
-            <p className="text-sm font-semibold">{achievement.title}</p>
+          <li
+            className="rounded-lg border border-pink-300/25 bg-pink-500/[0.04] px-4 py-3"
+            key={achievement.key}
+          >
+            <p className="inline-flex rounded-full bg-pink-500/15 px-2.5 py-1 text-sm font-semibold text-pink-100">
+              {achievement.title}
+            </p>
             <p className="mt-1 text-xs text-muted-foreground">
               {achievement.description}
             </p>

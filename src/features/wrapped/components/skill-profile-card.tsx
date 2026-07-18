@@ -17,17 +17,19 @@ export function SkillProfileCard({ skills }: SkillProfileCardProps) {
       />
       <ul className="mt-5 space-y-4">
         {skills.map((skill) => (
-          <li className="rounded-lg border p-4" key={skill.key}>
+          <li className="rounded-lg border border-teal-300/25 bg-teal-500/[0.03] p-4" key={skill.key}>
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-semibold">{skill.label}</p>
-              <p className="text-sm font-semibold">{skill.score} / 100</p>
+              <p className="rounded-full bg-teal-500/15 px-2.5 py-1 text-sm font-semibold text-teal-100">
+                {skill.score} / 100
+              </p>
             </div>
             <div
               aria-hidden
-              className="mt-2 h-2 w-full overflow-hidden rounded-full bg-muted"
+              className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-muted/70"
             >
               <div
-                className="h-full rounded-full bg-primary transition-all"
+                className="h-full rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 transition-all"
                 style={{ width: `${skill.score}%` }}
               />
             </div>

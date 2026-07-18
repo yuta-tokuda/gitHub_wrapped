@@ -35,6 +35,7 @@ export function LanguagePieChartCard({ languageStats }: LanguagePieChartCardProp
   return (
     <section className="glass-card border-l-4 border-l-lime-400/70 p-6">
       <CardHeader
+        description="使用言語の比率と件数を視覚的に確認できます"
         icon={PieChartLucide}
         iconClassName="bg-lime-500/15 text-lime-300"
         title="言語比率チャート"
@@ -56,14 +57,20 @@ export function LanguagePieChartCard({ languageStats }: LanguagePieChartCardProp
                 />
               ))}
             </Pie>
-            <Tooltip />
+            <Tooltip
+              contentStyle={{
+                background: "rgba(10, 14, 22, 0.92)",
+                border: "1px solid rgba(132, 204, 22, 0.4)",
+                borderRadius: "10px",
+              }}
+            />
           </PieChart>
         </ResponsiveContainer>
       </div>
       <ul className="mt-4 grid gap-2 sm:grid-cols-2">
         {languageStats.map((item, index) => (
           <li
-            className="flex items-center justify-between rounded-md border px-3 py-2 text-sm"
+            className="flex items-center justify-between rounded-md border border-lime-300/25 bg-lime-500/[0.04] px-3 py-2 text-sm"
             key={item.name}
           >
             <div className="flex items-center gap-2">

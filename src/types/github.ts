@@ -26,6 +26,7 @@ export type GitHubRepository = {
   createdAt: string;
   updatedAt: string;
   pushedAt: string;
+  languages?: string[];
 };
 
 export type LanguageStat = {

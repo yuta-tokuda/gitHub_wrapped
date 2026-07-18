@@ -17,7 +17,11 @@ import { buildRepositoryHealthInsight } from "@/features/wrapped/analysis/reposi
 import { buildRepositoryInsights } from "@/features/wrapped/analysis/repository-insights";
 import { buildSkillProfile } from "@/features/wrapped/analysis/skill-profile";
 import { WrappedPageContent } from "@/features/wrapped/components/wrapped-page-content";
-import { GitHubApiError, getWrappedGitHubData } from "@/lib/github";
+import {
+  GitHubApiError,
+  getWrappedGitHubData,
+  withRepositoryLanguages,
+} from "@/lib/github";
 
 type WrappedPageProps = {
   params: Promise<{
@@ -101,10 +105,14 @@ export default async function WrappedPage({ params }: WrappedPageProps) {
   const futurePotential = buildFuturePotentialInsight(developerDna, score, growthCurve);
   const repositoryInsights = buildRepositoryInsights(data);
   const achievements = collectAchievements(data);
-  const rankingRepositories = data.repositories
+  const rankingRepositoriesBase = data.repositories
     .slice()
     .sort((a, b) => b.stargazersCount - a.stargazersCount)
     .slice(0, TOP_REPOSITORIES_LIMIT);
+  const rankingRepositories = await withRepositoryLanguages(
+    data.user.login,
+    rankingRepositoriesBase,
+  );
 
   return (
     <>

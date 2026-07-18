@@ -1,7 +1,7 @@
 "use client";
 
 import { Copy, Download, ExternalLink, Share2 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type ShareActionsProps = {
   username: string;
@@ -36,20 +36,27 @@ function createOgImageUrl(url: string): string {
 export function ShareActions({ username }: ShareActionsProps) {
   const [copied, setCopied] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const shareUrl = useMemo(() => {
-    if (typeof window === "undefined") {
+    if (!mounted || typeof window === "undefined") {
       return "";
     }
 
     return window.location.href;
-  }, []);
+  }, [mounted]);
 
   const shareText = createShareText(username);
   const xIntentUrl = shareUrl ? createXIntentUrl(shareText, shareUrl) : "#";
   const ogImageUrl = shareUrl ? createOgImageUrl(shareUrl) : "#";
   const canUseNativeShare =
-    typeof navigator !== "undefined" && typeof navigator.share === "function";
+    mounted &&
+    typeof navigator !== "undefined" &&
+    typeof navigator.share === "function";
 
   const handleCopy = async () => {
     if (!shareUrl) {
@@ -93,6 +100,7 @@ export function ShareActions({ username }: ShareActionsProps) {
     try {
       const response = await fetch(ogImageUrl);
       if (!response.ok) {
+        window.open(ogImageUrl, "_blank", "noopener,noreferrer");
         return;
       }
 
@@ -105,6 +113,10 @@ export function ShareActions({ username }: ShareActionsProps) {
       link.click();
       link.remove();
       URL.revokeObjectURL(objectUrl);
+    } catch {
+      // Some browsers or extensions can block fetch for generated image routes.
+      // Fall back to opening the OG image directly so users can still save it.
+      window.open(ogImageUrl, "_blank", "noopener,noreferrer");
     } finally {
       setDownloading(false);
     }

@@ -54,6 +54,26 @@ export function LanguagePieChartCard({ languageStats }: LanguagePieChartCardProp
           </PieChart>
         </ResponsiveContainer>
       </div>
+      <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+        {languageStats.map((item, index) => (
+          <li
+            className="flex items-center justify-between rounded-md border px-3 py-2 text-sm"
+            key={item.name}
+          >
+            <div className="flex items-center gap-2">
+              <span
+                aria-hidden
+                className="inline-block size-2.5 rounded-full"
+                style={{ backgroundColor: CHART_COLORS[index % CHART_COLORS.length] }}
+              />
+              <span className="font-medium">{item.name}</span>
+            </div>
+            <span className="text-muted-foreground">
+              {item.count}件 ({item.ratio}%)
+            </span>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

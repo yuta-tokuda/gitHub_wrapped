@@ -64,3 +64,17 @@ export type DeveloperPersonality = {
   matchedDna: DeveloperDnaKey[];
   reason: string;
 };
+
+export type MvpDiagnostic = {
+  key: string;
+  title: string;
+  score: number;
+  diagnosis: string;
+  analysisResult: string;
+  valueLabel: string;
+  evidence: string[];
+  funScore: 1 | 2 | 3 | 4 | 5;
+  implementationDifficulty: 1 | 2 | 3 | 4 | 5;
+  formula: string;
+  shareText: string;
+};

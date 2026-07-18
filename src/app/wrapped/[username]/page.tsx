@@ -11,6 +11,7 @@ import { buildEngineeringInsight } from "@/features/wrapped/analysis/engineering
 import { buildFuturePotentialInsight } from "@/features/wrapped/analysis/future-potential";
 import { buildGrowthCurveInsight } from "@/features/wrapped/analysis/growth-curve";
 import { buildLanguageDiversityInsight } from "@/features/wrapped/analysis/language-diversity";
+import { buildMvpDiagnostics } from "@/features/wrapped/analysis/mvp-diagnostics";
 import { buildPublicDataInsight } from "@/features/wrapped/analysis/public-data-insight";
 import { buildRecruiterSummary } from "@/features/wrapped/analysis/recruiter-summary";
 import { buildRepositoryHealthInsight } from "@/features/wrapped/analysis/repository-health";
@@ -100,6 +101,7 @@ export default async function WrappedPage({ params }: WrappedPageProps) {
   const engineeringInsight = buildEngineeringInsight(data, score);
   const publicDataInsight = buildPublicDataInsight(data);
   const languageDiversity = buildLanguageDiversityInsight(data);
+  const mvpDiagnostics = buildMvpDiagnostics(data);
   const repositoryHealth = buildRepositoryHealthInsight(data);
   const growthCurve = buildGrowthCurveInsight(data);
   const futurePotential = buildFuturePotentialInsight(developerDna, score, growthCurve);
@@ -130,6 +132,7 @@ export default async function WrappedPage({ params }: WrappedPageProps) {
         futurePotential={futurePotential}
         growthCurve={growthCurve}
         languageDiversity={languageDiversity}
+        mvpDiagnostics={mvpDiagnostics}
         publicDataInsight={publicDataInsight}
         recruiterSummary={recruiterSummary}
         repositoryHealth={repositoryHealth}

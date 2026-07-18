@@ -8,6 +8,7 @@ import type {
   DeveloperPersonality,
   DeveloperScoreResult,
   DeveloperType,
+  MvpDiagnostic,
 } from "@/features/wrapped/analysis/types";
 import type { FuturePotentialInsight } from "@/features/wrapped/analysis/future-potential";
 import type { GrowthCurveInsight } from "@/features/wrapped/analysis/growth-curve";
@@ -31,6 +32,7 @@ import { GrowthCurveCard } from "@/features/wrapped/components/growth-curve-card
 import { LanguageDiversityCard } from "@/features/wrapped/components/language-diversity-card";
 import { LanguagePieChartCard } from "@/features/wrapped/components/language-pie-chart-card";
 import { MetricsCard } from "@/features/wrapped/components/metrics-card";
+import { MvpDiagnosticsCard } from "@/features/wrapped/components/mvp-diagnostics-card";
 import { ProfileCard } from "@/features/wrapped/components/profile-card";
 import { PublicDataInsightCard } from "@/features/wrapped/components/public-data-insight-card";
 import { RepositoriesListCard } from "@/features/wrapped/components/repositories-list-card";
@@ -53,6 +55,7 @@ type WrappedPageContentProps = {
   skillProfile: SkillArea[];
   engineeringInsight: EngineeringInsight;
   publicDataInsight: PublicDataInsight;
+  mvpDiagnostics: MvpDiagnostic[];
   languageDiversity: LanguageDiversityInsight;
   repositoryHealth: RepositoryHealthInsight;
   growthCurve: GrowthCurveInsight;
@@ -104,6 +107,7 @@ export function WrappedPageContent({
   skillProfile,
   engineeringInsight,
   publicDataInsight,
+  mvpDiagnostics,
   languageDiversity,
   repositoryHealth,
   growthCurve,
@@ -160,6 +164,9 @@ export function WrappedPageContent({
       </AnimatedCardSection>
       <AnimatedCardSection>
         <AchievementsCard achievements={achievements} />
+      </AnimatedCardSection>
+      <AnimatedCardSection>
+        <MvpDiagnosticsCard diagnostics={mvpDiagnostics} />
       </AnimatedCardSection>
       <section className="grid gap-5 px-4 sm:px-6 lg:grid-cols-2">
         <AnimatedCardSection>

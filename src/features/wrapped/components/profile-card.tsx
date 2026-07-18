@@ -20,7 +20,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
         iconClassName="bg-emerald-500/15 text-emerald-300"
         title="プロフィール"
       />
-      <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-start sm:text-left">
+      <div className="mt-5 flex flex-col items-center gap-4 text-center sm:flex-row sm:items-start sm:text-left">
         <Image
           alt={`${user.login} icon`}
           className="size-24 rounded-full border"

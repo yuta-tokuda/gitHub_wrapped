@@ -22,25 +22,28 @@ export const githubRepositorySchema = z.object({
   stargazers_count: z.number().int().nonnegative(),
   forks_count: z.number().int().nonnegative(),
   language: z.string().nullable(),
-  topics: z.array(z.string()).default([]),
+  topics: z.array(z.string()).nullish().transform((value) => value ?? []),
   archived: z.boolean(),
   fork: z.boolean(),
   created_at: z.iso.datetime(),
   updated_at: z.iso.datetime(),
-  pushed_at: z.iso.datetime(),
+  // Empty repos can have null pushed_at
+  pushed_at: z.iso.datetime().nullable(),
 });
 
 export const githubRepositoriesSchema = z.array(githubRepositorySchema);
 
-const githubEventPayloadSchema = z.object({
-  commits: z.array(z.object({})).optional(),
-});
+const githubEventPayloadSchema = z
+  .object({
+    commits: z.array(z.object({})).nullish(),
+  })
+  .passthrough();
 
 export const githubPublicEventSchema = z.object({
   id: z.string(),
   type: z.string(),
   created_at: z.iso.datetime(),
-  payload: githubEventPayloadSchema.optional(),
+  payload: githubEventPayloadSchema.nullish(),
 });
 
 export const githubPublicEventsSchema = z.array(githubPublicEventSchema);
@@ -60,7 +63,7 @@ export const githubPinnedRepositoryNodeSchema = z.object({
     .nullable(),
   createdAt: z.iso.datetime(),
   updatedAt: z.iso.datetime(),
-  pushedAt: z.iso.datetime(),
+  pushedAt: z.iso.datetime().nullable(),
 });
 
 export const githubPinnedRepositoriesSchema = z.object({
@@ -68,7 +71,8 @@ export const githubPinnedRepositoriesSchema = z.object({
     user: z
       .object({
         pinnedItems: z.object({
-          nodes: z.array(githubPinnedRepositoryNodeSchema),
+          // GraphQL may include null nodes for deleted/inaccessible items
+          nodes: z.array(githubPinnedRepositoryNodeSchema.nullable()),
         }),
       })
       .nullable(),

@@ -75,6 +75,9 @@ export class GitHubApiError extends Error {
   }
 }
 
+const GITHUB_FETCH_MAX_ATTEMPTS = 3;
+const GITHUB_FETCH_RETRY_BASE_MS = 250;
+
 function getGitHubToken(): string | undefined {
   return process.env.GITHUB_TOKEN;
 }
@@ -86,6 +89,56 @@ function buildGitHubHeaders(): HeadersInit {
     Accept: GITHUB_ACCEPT_HEADER,
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
+}
+
+function isRetryableFetchError(error: unknown): boolean {
+  if (!(error instanceof Error)) {
+    return false;
+  }
+
+  const cause =
+    "cause" in error && error.cause instanceof Error ? error.cause : null;
+  const code =
+    cause && "code" in cause && typeof cause.code === "string"
+      ? cause.code
+      : "";
+
+  return (
+    error.message === "fetch failed" ||
+    code === "UND_ERR_SOCKET" ||
+    code === "ECONNRESET" ||
+    code === "ETIMEDOUT" ||
+    code === "ECONNREFUSED"
+  );
+}
+
+async function sleep(ms: number): Promise<void> {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function fetchGitHub(
+  input: string,
+  init?: RequestInit,
+): Promise<Response> {
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= GITHUB_FETCH_MAX_ATTEMPTS; attempt++) {
+    try {
+      return await fetch(input, init);
+    } catch (error) {
+      lastError = error;
+      if (
+        !isRetryableFetchError(error) ||
+        attempt === GITHUB_FETCH_MAX_ATTEMPTS
+      ) {
+        throw error;
+      }
+
+      await sleep(GITHUB_FETCH_RETRY_BASE_MS * 2 ** (attempt - 1));
+    }
+  }
+
+  throw lastError;
 }
 
 async function parseErrorResponse(response: Response): Promise<string> {
@@ -103,7 +156,7 @@ async function fetchGitHubJson<T>(
   schema: z.ZodType<T>,
   options?: GitHubFetchOptions,
 ): Promise<T> {
-  const response = await fetch(`${GITHUB_API_BASE_URL}${path}`, {
+  const response = await fetchGitHub(`${GITHUB_API_BASE_URL}${path}`, {
     headers: buildGitHubHeaders(),
     cache: "force-cache",
     next: {
@@ -153,7 +206,7 @@ function toGitHubRepository(
     fork: value.fork,
     createdAt: value.created_at,
     updatedAt: value.updated_at,
-    pushedAt: value.pushed_at,
+    pushedAt: value.pushed_at ?? value.updated_at,
     languages: value.language ? [value.language] : [],
     hasReadme: false,
   };
@@ -174,7 +227,7 @@ function toGitHubPinnedRepository(node: GitHubPinnedNode): GitHubRepository {
     fork: false,
     createdAt: node.createdAt,
     updatedAt: node.updatedAt,
-    pushedAt: node.pushedAt,
+    pushedAt: node.pushedAt ?? node.updatedAt,
     languages: node.primaryLanguage?.name ? [node.primaryLanguage.name] : [],
     hasReadme: false,
   };
@@ -230,7 +283,7 @@ async function hasRepositoryReadme(
   repository: GitHubRepository,
 ): Promise<boolean> {
   try {
-    const response = await fetch(
+    const response = await fetchGitHub(
       `${GITHUB_API_BASE_URL}/repos/${encodeURIComponent(owner)}/${encodeURIComponent(
         repository.name,
       )}/readme`,
@@ -392,7 +445,7 @@ async function getContributionSummary(username: string): Promise<ContributionSum
 async function fetchPinnedRepositoriesResponse(
   username: string,
 ): Promise<z.infer<typeof githubPinnedRepositoriesSchema> | null> {
-  const response = await fetch(GITHUB_GRAPHQL_URL, {
+  const response = await fetchGitHub(GITHUB_GRAPHQL_URL, {
     method: "POST",
     headers: {
       ...buildGitHubHeaders(),
@@ -426,7 +479,9 @@ async function getPinnedRepositories(
   }
 
   const parsed = await fetchPinnedRepositoriesResponse(username);
-  const nodes = parsed?.data.user?.pinnedItems.nodes ?? [];
+  const nodes = (parsed?.data.user?.pinnedItems.nodes ?? []).filter(
+    (node): node is NonNullable<typeof node> => node != null,
+  );
   return nodes.map(toGitHubPinnedRepository);
 }
 

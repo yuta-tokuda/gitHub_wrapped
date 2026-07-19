@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { APP_DESCRIPTION, APP_NAME } from "@/constants/app";
 import { SearchForm } from "@/features/home/components/search-form";
@@ -46,6 +47,11 @@ export default async function Home({ searchParams }: HomePageProps) {
         1ページ1カードのWrapped形式で表示します。
       </p>
       <SearchForm defaultUsername={defaultUsername} errorMessage={errorMessage || null} />
+      <p className="mt-3 text-xs text-muted-foreground">
+        <Link className="underline underline-offset-4 hover:text-foreground" href="/terms">
+          利用規約
+        </Link>
+      </p>
       <section className="mt-10 grid w-full max-w-4xl gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
         <article className="glass-card p-4">
           <h2 className="text-sm font-semibold">プロフィール分析</h2>

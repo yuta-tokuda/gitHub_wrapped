@@ -12,7 +12,7 @@ export function ContributionsCard({ contributions }: ContributionsCardProps) {
   return (
     <section className="glass-card border-l-4 border-l-violet-400/70 p-6">
       <CardHeader
-        description={`直近 ${contributions.lookbackDays} 日の公開イベントを集計`}
+        description={`取得した公開イベント ${contributions.sampledEvents} 件を集計（最大100件）`}
         icon={Activity}
         iconClassName="bg-violet-500/15 text-violet-300"
         title="コントリビューション概要"

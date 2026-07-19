@@ -2,7 +2,6 @@ import { unstable_cache } from "next/cache";
 import { z } from "zod";
 
 import {
-  CONTRIBUTION_LOOKBACK_DAYS,
   GITHUB_ACCEPT_HEADER,
   GITHUB_API_BASE_URL,
   GITHUB_API_REVALIDATE_SECONDS,
@@ -296,13 +295,6 @@ function getRepositoryMetrics(repositories: GitHubRepository[]): RepositoryMetri
   };
 }
 
-function isInContributionWindow(createdAt: string): boolean {
-  const now = new Date();
-  const windowStart = new Date(now);
-  windowStart.setDate(windowStart.getDate() - CONTRIBUTION_LOOKBACK_DAYS);
-  return new Date(createdAt) >= windowStart;
-}
-
 function countContributionUnit(event: GitHubPublicEvent): number {
   if (event.type === "PushEvent") {
     return event.payload?.commits?.length ?? 1;
@@ -316,22 +308,17 @@ function countContributionUnit(event: GitHubPublicEvent): number {
 }
 
 function summarizeContributions(events: GitHubPublicEvent[]): ContributionSummary {
-  const filteredEvents = events.filter((event) =>
-    isInContributionWindow(event.created_at),
-  );
-
   return {
-    totalContributions: filteredEvents.reduce(
+    totalContributions: events.reduce(
       (acc, event) => acc + countContributionUnit(event),
       0,
     ),
-    pushEvents: filteredEvents.filter((event) => event.type === "PushEvent").length,
-    pullRequestEvents: filteredEvents.filter(
+    pushEvents: events.filter((event) => event.type === "PushEvent").length,
+    pullRequestEvents: events.filter(
       (event) => event.type === "PullRequestEvent",
     ).length,
-    issuesEvents: filteredEvents.filter((event) => event.type === "IssuesEvent")
-      .length,
-    lookbackDays: CONTRIBUTION_LOOKBACK_DAYS,
+    issuesEvents: events.filter((event) => event.type === "IssuesEvent").length,
+    sampledEvents: events.length,
   };
 }
 

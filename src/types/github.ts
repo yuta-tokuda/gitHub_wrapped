@@ -48,7 +48,7 @@ export type ContributionSummary = {
   pushEvents: number;
   pullRequestEvents: number;
   issuesEvents: number;
-  lookbackDays: number;
+  sampledEvents: number;
 };
 
 export type WrappedGitHubData = {

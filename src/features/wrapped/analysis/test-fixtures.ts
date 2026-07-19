@@ -50,7 +50,7 @@ export function createWrappedFixture(
       pushEvents: 60,
       pullRequestEvents: 24,
       issuesEvents: 22,
-      lookbackDays: 90,
+      sampledEvents: 100,
     },
   };
 

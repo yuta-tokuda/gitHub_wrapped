@@ -25,7 +25,7 @@ const SCORE_ACTION_HINTS: Record<keyof DeveloperScoreResult["breakdown"], string
   followers:
     "継続的な発信とコントリビューションでフォローされやすくなります。",
   contributions:
-    "Push・PR・Issue対応を増やすと上がります（公開イベント最大100件で集計）。",
+    "Push・PR・Issue・レビュー/コメント対応を増やすと上がります（公開イベント最大100件で集計）。",
   readmeCoverage:
     "READMEやDocsを各リポジトリに用意すると改善しやすいです。",
   languageDiversity:

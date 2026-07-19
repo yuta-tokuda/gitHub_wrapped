@@ -349,7 +349,12 @@ function countContributionUnit(event: GitHubPublicEvent): number {
     return event.payload?.commits?.length ?? 1;
   }
 
-  if (event.type === "PullRequestEvent" || event.type === "IssuesEvent") {
+  if (
+    event.type === "PullRequestEvent" ||
+    event.type === "IssuesEvent" ||
+    event.type === "PullRequestReviewEvent" ||
+    event.type === "IssueCommentEvent"
+  ) {
     return 1;
   }
 

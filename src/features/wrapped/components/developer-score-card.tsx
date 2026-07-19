@@ -31,7 +31,7 @@ const SCORE_ACTION_HINTS: Record<keyof DeveloperScoreResult["breakdown"], string
   languageDiversity:
     "普段使わない言語でも実装して公開すると伸びやすいです。",
   recentActivity:
-    "更新が止まっているリポジトリを定期的にメンテすると上がります。",
+    "手持ちリポジトリを定期更新すると上がります（個人開発向け基準）。",
 };
 
 const SCORE_MAX_BY_KEY: Record<keyof DeveloperScoreResult["breakdown"], number> = {
@@ -61,6 +61,11 @@ function toProgressRate(key: keyof DeveloperScoreResult["breakdown"], value: num
   return Math.max(0, Math.min(100, (value / max) * 100));
 }
 
+function formatScoreValue(value: number): string {
+  const rounded = Number(value.toFixed(1));
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+}
+
 export function DeveloperScoreCard({ score }: DeveloperScoreCardProps) {
   const entries = Object.entries(score.breakdown) as Array<
     [keyof DeveloperScoreResult["breakdown"], number]
@@ -85,7 +90,7 @@ export function DeveloperScoreCard({ score }: DeveloperScoreCardProps) {
               {SCORE_LABELS[key] ?? key}
             </dt>
             <dd className="mt-1 text-lg font-semibold">
-              {value.toFixed(1)} / {SCORE_MAX_BY_KEY[key]}
+              {formatScoreValue(value)} / {SCORE_MAX_BY_KEY[key]}
             </dd>
             <p className="mt-1 text-xs text-muted-foreground">
               {SCORE_ACTION_HINTS[key]}

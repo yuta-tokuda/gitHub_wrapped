@@ -32,6 +32,7 @@ export function createWrappedFixture(
         createdAt: "2024-01-01T00:00:00Z",
         updatedAt: new Date().toISOString(),
         pushedAt: new Date().toISOString(),
+        hasReadme: true,
       },
     ],
     pinnedRepositories: [],

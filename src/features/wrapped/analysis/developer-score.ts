@@ -14,15 +14,18 @@ function calculateReadmeCoverage(repositories: WrappedAnalysisInput["repositorie
     return 0;
   }
 
-  const withReadmeCount = repositories.filter((repository) => {
-    const text = `${repository.name} ${repository.description ?? ""}`.toLowerCase();
-    return text.includes("readme") || text.includes("docs");
-  }).length;
+  const withReadmeCount = repositories.filter(
+    (repository) => repository.hasReadme === true,
+  ).length;
 
   return withReadmeCount / repositories.length;
 }
 
 function getActiveDaysScore(repositories: WrappedAnalysisInput["repositories"]): number {
+  if (repositories.length === 0) {
+    return 0;
+  }
+
   const now = new Date();
   const activeDays = repositories.filter((repository) => {
     const updatedAt = new Date(repository.updatedAt);
@@ -31,9 +34,14 @@ function getActiveDaysScore(repositories: WrappedAnalysisInput["repositories"]):
     return diffDays <= SCORE_THRESHOLDS.activityDays;
   }).length;
 
+  const activityTarget = Math.min(
+    SCORE_THRESHOLDS.recentActivityTargetMax,
+    repositories.length,
+  );
+
   return toCappedScore(
     activeDays,
-    SCORE_THRESHOLDS.repositories,
+    activityTarget,
     SCORE_WEIGHTS.recentActivity,
   );
 }

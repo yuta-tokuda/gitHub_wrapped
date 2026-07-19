@@ -155,6 +155,7 @@ function toGitHubRepository(
     updatedAt: value.updated_at,
     pushedAt: value.pushed_at,
     languages: value.language ? [value.language] : [],
+    hasReadme: false,
   };
 }
 
@@ -175,6 +176,7 @@ function toGitHubPinnedRepository(node: GitHubPinnedNode): GitHubRepository {
     updatedAt: node.updatedAt,
     pushedAt: node.pushedAt,
     languages: node.primaryLanguage?.name ? [node.primaryLanguage.name] : [],
+    hasReadme: false,
   };
 }
 
@@ -218,6 +220,53 @@ export async function withRepositoryLanguages(
         languages,
       };
     }),
+  );
+
+  return enriched;
+}
+
+async function hasRepositoryReadme(
+  owner: string,
+  repository: GitHubRepository,
+): Promise<boolean> {
+  try {
+    const response = await fetch(
+      `${GITHUB_API_BASE_URL}/repos/${encodeURIComponent(owner)}/${encodeURIComponent(
+        repository.name,
+      )}/readme`,
+      {
+        headers: buildGitHubHeaders(),
+        cache: "force-cache",
+        next: {
+          revalidate: GITHUB_API_REVALIDATE_SECONDS,
+          tags: [`github-repo-readme:${owner}:${repository.name}`],
+        },
+      },
+    );
+
+    if (response.ok) {
+      return true;
+    }
+
+    if (response.status === 404) {
+      return false;
+    }
+
+    return false;
+  } catch {
+    return false;
+  }
+}
+
+async function withRepositoryReadme(
+  owner: string,
+  repositories: GitHubRepository[],
+): Promise<GitHubRepository[]> {
+  const enriched = await Promise.all(
+    repositories.map(async (repository) => ({
+      ...repository,
+      hasReadme: await hasRepositoryReadme(owner, repository),
+    })),
   );
 
   return enriched;
@@ -379,12 +428,13 @@ async function getPinnedRepositories(
 async function fetchWrappedGitHubData(
   username: string,
 ): Promise<WrappedGitHubData> {
-  const [user, repositories, pinnedRepositories, contributions] = await Promise.all([
+  const [user, repositoriesBase, pinnedRepositories, contributions] = await Promise.all([
     getGitHubUser(username),
     getGitHubRepositories(username),
     getPinnedRepositories(username),
     getContributionSummary(username),
   ]);
+  const repositories = await withRepositoryReadme(username, repositoriesBase);
 
   return {
     user,
@@ -402,7 +452,7 @@ export async function getWrappedGitHubData(
 
   return unstable_cache(
     async () => fetchWrappedGitHubData(normalizedUsername),
-    [`wrapped-data:${normalizedUsername}`],
+    [`wrapped-data:v2:${normalizedUsername}`],
     {
       revalidate: GITHUB_API_REVALIDATE_SECONDS,
       tags: [`wrapped:${normalizedUsername}`],

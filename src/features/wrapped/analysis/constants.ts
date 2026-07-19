@@ -11,12 +11,14 @@ export const SCORE_WEIGHTS = {
 } as const;
 
 export const SCORE_THRESHOLDS = {
-  repositories: 30,
-  stars: 500,
-  followers: 300,
-  contributions: 200,
-  languageDiversity: 8,
+  // Tuned for individual developers so scores are not overly harsh.
+  repositories: 20,
+  stars: 200,
+  followers: 100,
+  contributions: 120,
+  languageDiversity: 6,
   activityDays: 30,
+  recentActivityTargetMax: 10,
 } as const;
 
 export const TOP_REPOSITORIES_LIMIT = 5;

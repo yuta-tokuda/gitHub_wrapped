@@ -17,6 +17,23 @@ const SCORE_LABELS: Record<string, string> = {
   recentActivity: "更新頻度",
 };
 
+const SCORE_ACTION_HINTS: Record<keyof DeveloperScoreResult["breakdown"], string> = {
+  repositories:
+    "小さくても完了したリポジトリを増やすと上がりやすいです。",
+  stars:
+    "README整備・成果共有・OSS公開でスター獲得につながります。",
+  followers:
+    "継続的な発信とコントリビューションでフォローされやすくなります。",
+  contributions:
+    "Push・PR・Issue対応を増やすと上がります（公開イベント最大100件で集計）。",
+  readmeCoverage:
+    "READMEやDocsを各リポジトリに用意すると改善しやすいです。",
+  languageDiversity:
+    "普段使わない言語でも実装して公開すると伸びやすいです。",
+  recentActivity:
+    "更新が止まっているリポジトリを定期的にメンテすると上がります。",
+};
+
 const SCORE_MAX_BY_KEY: Record<keyof DeveloperScoreResult["breakdown"], number> = {
   repositories: SCORE_WEIGHTS.repositories,
   stars: SCORE_WEIGHTS.stars,
@@ -70,6 +87,9 @@ export function DeveloperScoreCard({ score }: DeveloperScoreCardProps) {
             <dd className="mt-1 text-lg font-semibold">
               {value.toFixed(1)} / {SCORE_MAX_BY_KEY[key]}
             </dd>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {SCORE_ACTION_HINTS[key]}
+            </p>
             <div
               aria-hidden
               className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-muted"
